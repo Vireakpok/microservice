@@ -1,0 +1,43 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: javatodev_core_api
+  profiles:
+    active: production
+  cloud:
+    config:
+      uri: http://localhost:8888
+    function:
+      definition: consume
+    stream:
+      bindings:
+        consume-in-0:
+          destination: order_topics
+      kafka:
+        binder:
+          brokers: localhost:9092
+    bus:
+      enabled: true
+      stream:
+        kafka:
+          binder:
+            zkNodes: localhost:2181
+            brokers: localhost:9092
+    vault:
+      kv:
+        enabled: true
+      authentication: TOKEN
+      token: 18456350-7b89-11ed-85e9-a5830358e351
+      scheme: http
+      host: 127.0.0.1
+      port: 8200
+      config:
+        import: vault://
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: spring-config-server
+  profiles:
+    active: development
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+    config:
+      uri: http://localhost:8888
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
+        kafka:
+          binder:
+            zkNodes: localhost:2181
+            brokers: localhost:9092
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
